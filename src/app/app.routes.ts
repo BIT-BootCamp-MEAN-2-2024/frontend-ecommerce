@@ -5,12 +5,14 @@ import { ProductDetailComponent } from './pages/products/product-detail/product-
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { ProductFormComponent } from './pages/products/product-form/product-form.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: '404', component: PageNotFoundComponent },
+    { path: 'product/form', component: ProductFormComponent },
     { path: 'product/list', component: ProductListComponent },
     { path: 'product/detail', component: ProductDetailComponent },
     { path: '', redirectTo: 'home', pathMatch: 'full' },

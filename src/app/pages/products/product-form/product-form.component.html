@@ -1,0 +1,56 @@
+<form 
+    [formGroup]="productForm" 
+    (ngSubmit)="onSubmit()"
+>
+<!-- 
+    [formGroup]="productForm": Vincula el formulario a la clase 
+    (ngSubmit)="onSubmit()": Vincula la accion de enviar los datos del formulario
+    [] >> Si ven esto es una directiva
+    () >> Si ven esto es un evento
+-->
+    <div class="field">
+        <label for="name-product">Name product</label>
+        <input type="text" formControlName="name" id="name-product" />
+    </div>
+    <div class="field">
+        <label for="description">Description</label>
+        <textarea formControlName="description" id="description"></textarea>
+    </div>
+    <div class="field">
+        <label for="price">Price</label>
+        <input type="number" id="price" formControlName="price" />
+    </div>
+    <div class="field">
+        <label for="quantity">Quantity</label>
+        <input type="number" formControlName="quantity" id="quantity" />
+    </div>
+    <div class="field">
+        <label for="category">Category</label>
+        <select formControlName="category" id="category">
+            <option value="tecnology">Tecnology</option>
+            <option value="vegetables">Vegetables</option>
+            <option value="fruits">Fruits</option>
+            <option value="home">Home</option>
+            <option value="pharmacy">Pharmacy</option>
+        </select>
+    </div>
+    <div class="field">
+        <label for="image">Image Product</label>
+        <!-- <input type="file" /> -->
+        <input type="text" formControlName="urlImage" id="image" />
+    </div>
+    <div class="field">
+        <button type="submit">Send</button>
+    </div>
+</form>
+
+
+<!-- 
+name
+description
+price
+quantity
+category
+urlImage
+state 
+-->
