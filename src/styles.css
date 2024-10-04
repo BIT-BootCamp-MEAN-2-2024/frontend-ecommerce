@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+.form h1 {
+    text-align: center;
+}
+
+.form-content {
+    border: 1px dotted;
+    width: 300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        margin: .5rem 0;
+        width: 100%;
+    }
+
+    .error {
+        height: 1rem;
+        color: red;
+        font-style: italic;
+    }
+}

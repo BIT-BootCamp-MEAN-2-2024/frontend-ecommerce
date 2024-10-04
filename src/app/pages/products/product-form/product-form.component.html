@@ -1,4 +1,5 @@
 <form 
+    class="form form-product"
     [formGroup]="productForm" 
     (ngSubmit)="onSubmit()"
 >
@@ -8,40 +9,84 @@
     [] >> Si ven esto es una directiva
     () >> Si ven esto es un evento
 -->
-    <div class="field">
-        <label for="name-product">Name product</label>
-        <input type="text" formControlName="name" id="name-product" />
-    </div>
-    <div class="field">
-        <label for="description">Description</label>
-        <textarea formControlName="description" id="description"></textarea>
-    </div>
-    <div class="field">
-        <label for="price">Price</label>
-        <input type="number" id="price" formControlName="price" />
-    </div>
-    <div class="field">
-        <label for="quantity">Quantity</label>
-        <input type="number" formControlName="quantity" id="quantity" />
-    </div>
-    <div class="field">
-        <label for="category">Category</label>
-        <select formControlName="category" id="category">
-            <option value="tecnology">Tecnology</option>
-            <option value="vegetables">Vegetables</option>
-            <option value="fruits">Fruits</option>
-            <option value="home">Home</option>
-            <option value="pharmacy">Pharmacy</option>
-        </select>
-    </div>
-    <div class="field">
-        <label for="image">Image Product</label>
-        <!-- <input type="file" /> -->
-        <input type="text" formControlName="urlImage" id="image" />
-    </div>
-    <div class="field">
-        <button type="submit">Send</button>
-    </div>
+    <h1>Product Form</h1>
+   <div class="form-content">
+        <div class="field">
+            <label for="name-product">Name product*</label>
+            <input type="text" formControlName="name" id="name-product" />
+            <div class="error">
+                <!-- Validar los estados del campo input >> name -->
+                <div *ngIf="productForm.get( 'name' )?.invalid && ( productForm.get( 'name' )?.dirty || productForm.get( 'name' )?.touched )" >
+                    <small *ngIf="productForm.get( 'name' )?.errors?.[ 'required' ]">
+                        El campo 'name' es obligatorio
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label for="description">Description</label>
+            <textarea formControlName="description" id="description"></textarea>
+        </div>
+        <div class="field">
+            <label for="price">Price*</label>
+            <input type="number" id="price" formControlName="price" />
+            <div class="error">
+                <!-- Validar los estados del campo input >> name -->
+                <div *ngIf="productForm.get( 'price' )?.invalid && ( productForm.get( 'price' )?.dirty || productForm.get( 'price' )?.touched )" >
+                    <!-- Valida las reglas establecidas para cada campo del formulario -->
+                    <small *ngIf="productForm.get( 'price' )?.errors?.[ 'required' ]">
+                        El valor del campo precio es obligatorio
+                    </small>
+                    <small *ngIf="productForm.get( 'price' )?.errors?.[ 'min' ]">
+                        El valor del campo precio no puede ser negativo
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label for="quantity">Quantity*</label>
+            <input type="number" formControlName="quantity" id="quantity" />
+            <!-- Validar los estados del campo input >> name -->
+            <div class="error">
+                <div *ngIf="productForm.get( 'quantity' )?.invalid && ( productForm.get( 'quantity' )?.dirty || productForm.get( 'quantity' )?.touched )" >
+                    <!-- Valida las reglas establecidas para cada campo del formulario -->
+                    <small *ngIf="productForm.get( 'quantity' )?.errors?.[ 'required' ]">
+                        El valor del campo cantidad es obligatorio
+                    </small>
+                    <small *ngIf="productForm.get( 'quantity' )?.errors?.[ 'min' ]">
+                        El valor del campo cantidad no puede ser negativo
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label for="category">Category*</label>
+            <select formControlName="category" id="category">
+                <option value="tecnology">Tecnology</option>
+                <option value="vegetables">Vegetables</option>
+                <option value="fruits">Fruits</option>
+                <option value="home">Home</option>
+                <option value="pharmacy">Pharmacy</option>
+            </select>
+            <!-- Validar los estados del campo input >> name -->
+            <div class="error">
+                <div *ngIf="productForm.get( 'category' )?.invalid && ( productForm.get( 'category' )?.dirty || productForm.get( 'category' )?.touched )" >
+                    <!-- Valida las reglas establecidas para cada campo del formulario -->
+                    <small *ngIf="productForm.get( 'category' )?.errors?.[ 'required' ]">
+                        El valor del campo cantidad es obligatorio
+                    </small>
+                </div>
+            </div>
+        </div>
+        <div class="field">
+            <label for="image">Image Product</label>
+            <!-- <input type="file" /> -->
+            <input type="text" formControlName="urlImage" id="image" />
+        </div>
+        <div class="field">
+            <button type="submit" [disabled]="productForm.invalid">Register</button>
+        </div>
+   </div>
 </form>
 
 
