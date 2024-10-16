@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class LoginComponent {
   formData!: FormGroup;
 
-  constructor() {
+  constructor( private authService: AuthService ) {
     this.formData = new FormGroup({
       username: new FormControl( '', [ Validators.required, Validators.email ] ),
       password: new FormControl( '', [ Validators.required, Validators.minLength( 8 ), Validators.maxLength( 20 ) ] )
@@ -21,6 +22,9 @@ export class LoginComponent {
   handleSubmit() {
     if( this.formData.valid ) {
       console.log(this.formData.value);
+      this.authService.loginUser( this.formData.value ).subscribe( function( data ) {
+        console.log( data );
+      });
     }
   }
 }

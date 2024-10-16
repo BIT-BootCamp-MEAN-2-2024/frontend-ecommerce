@@ -14,4 +14,8 @@ export class AuthService {
   registerUser ( newUser: User ) {
     return this.http.post( 'http://localhost:3000/api/auth/register', newUser );
   }
+
+  loginUser( credencials: User ) {
+    return this.http.post( 'http://localhost:3000/api/auth/login', credencials );
+  }
 }
