@@ -11,6 +11,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class RegisterComponent {
   formData!: FormGroup;
+  message: string|undefined;
 
   constructor( private authService: AuthService ) {
     this.formData = new FormGroup({
@@ -23,9 +24,19 @@ export class RegisterComponent {
   handleSubmit() {
     if(this.formData.valid) {
       console.log(this.formData.value);
-      this.authService.registerUser( this.formData.value ).subscribe( function( data ) {
-        console.log(data);
+      this.authService.registerUser( this.formData.value ).subscribe( ( data: string|undefined ) => {
+        console.log( data );
+
+        /** Mostramos los mensajes */
+        this.message = data;
+
+        /** Ocultamos los mensajes que se visualizan en el formulario */
+        setTimeout( () => {
+          this.message = '';
+        }, 2000 );
+
       });
+
       this.formData.reset();
     }
   }
