@@ -5,6 +5,7 @@ import { Observable, tap, map, catchError, of } from 'rxjs';
 
 import { User } from '../interfaces/user';
 import { Response } from '../interfaces/response';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -31,7 +32,23 @@ export class AuthService {
       );
   }
 
-  loginUser( credencials: User ): Observable<Response> {
-    return this.http.post<Response>( 'http://localhost:3000/api/auth/login', credencials );
+  loginUser( credencials: User ): Observable<string|boolean|undefined> {
+    return this.http.post<Response>( 'http://localhost:3000/api/auth/login', credencials )
+      .pipe(
+        tap( data => {
+
+          if( data.token )
+            localStorage.setItem( 'token', data.token );      // Guarda el Token en el LocalStorage del Navegador
+          
+        }),
+        map( data => {
+          if( ! data.ok ) {
+            return data.msg;
+          }
+            
+          return data.ok;
+        }),
+        catchError( error => of ( 'Error en el servidor' ) )
+      );
   }
 }
