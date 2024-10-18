@@ -5,7 +5,6 @@ import { Observable, tap, map, catchError, of } from 'rxjs';
 
 import { User } from '../interfaces/user';
 import { Response } from '../interfaces/response';
-import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -69,5 +68,15 @@ export class AuthService {
         }),
         catchError( error => of ( 'Error en el servidor' ) )
       );
+  }
+
+  logoutUser(): Observable<boolean> {
+    if( this._authUserData ) {
+      this._authUserData = null;                  // Elimina datos del usuario autenticado en el Servicio
+      localStorage.removeItem( 'token' );         // Elimina token del LocalStorage
+      localStorage.removeItem( 'authUserData' );  // Elimina datos del usuario autenticado en el LocalStorage
+    }
+
+    return of( true );
   }
 }

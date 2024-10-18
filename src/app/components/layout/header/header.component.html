@@ -37,6 +37,11 @@
                     routerLinkActive="active"
                 >register</a>
             </li>
+            <li>
+                <a 
+                    (click)="logout()"
+                >logout</a>
+            </li>
         </ul>
     </nav>
     @if( userData ) {
