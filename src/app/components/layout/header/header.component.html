@@ -1,38 +1,47 @@
-<ul class="menu menu-main">
-    <li>
-        <a 
-            routerLink="/home" 
-            routerLinkActive="active"
-        >home</a>
-    </li>
-    <li>
-        <a 
-            [routerLink]="['product', 'list' ]" 
-            routerLinkActive="active"
-        >products</a>
-    </li>
-    <li>
-        <a 
-            [routerLink]="['product', 'form' ]" 
-            routerLinkActive="active"
-        >product form</a>
-    </li>
-    <li>
-        <a 
-            [routerLink]="['/product/detail']" 
-            routerLinkActive="active"
-        >product detail</a>
-    </li>
-    <li>
-        <a 
-            [routerLink]="['/login']" 
-            routerLinkActive="active"
-        >login</a>
-    </li>
-    <li>
-        <a 
-            [routerLink]="['/register']" 
-            routerLinkActive="active"
-        >register</a>
-    </li>
-</ul>
+<header class="header">
+    <nav class="menu-main">
+        <ul class="menu menu-main">
+            <li>
+                <a 
+                    routerLink="/home" 
+                    routerLinkActive="active"
+                >home</a>
+            </li>
+            <li>
+                <a 
+                    [routerLink]="['product', 'list' ]" 
+                    routerLinkActive="active"
+                >products</a>
+            </li>
+            <li>
+                <a 
+                    [routerLink]="['product', 'form' ]" 
+                    routerLinkActive="active"
+                >product form</a>
+            </li>
+            <li>
+                <a 
+                    [routerLink]="['/product/detail']" 
+                    routerLinkActive="active"
+                >product detail</a>
+            </li>
+            <li>
+                <a 
+                    [routerLink]="['/login']" 
+                    routerLinkActive="active"
+                >login</a>
+            </li>
+            <li>
+                <a 
+                    [routerLink]="['/register']" 
+                    routerLinkActive="active"
+                >register</a>
+            </li>
+        </ul>
+    </nav>
+    @if( userData ) {
+        <span>Hola, {{ userData.name }}</span>
+    }
+
+</header>
+

@@ -12,9 +12,18 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthService {
+  private _authUserData: User | null = null;
 
   /** Forma anterior a la version Angular 16 */
   constructor( private http: HttpClient ) { }
+
+  /** Getters */
+  get userData(): User | null {
+    const storedData = localStorage.getItem('authUserData');
+
+    // Verifica si storedData no es null ni undefined, además si el contenido es válido JSON
+    return this._authUserData || ( storedData && storedData !== 'undefined' ? JSON.parse(storedData) : null);
+  }
 
   registerUser ( newUser: User ): Observable<string|undefined> {
     return this.http.post<Response>( 'http://localhost:3000/api/auth/register', newUser )
@@ -37,8 +46,18 @@ export class AuthService {
       .pipe(
         tap( data => {
 
-          if( data.token )
-            localStorage.setItem( 'token', data.token );      // Guarda el Token en el LocalStorage del Navegador
+          if( data.token ) {
+
+            // Verifica si los datos del usuario existen y no son undefined
+            if( data.data ) {
+              console.log('Datos del usuario a guardar:', data.data); // <-- Agrega este console.log para depurar
+              this._authUserData = data.data;  // En el servicio
+              localStorage.setItem( 'authUserData', JSON.stringify(data.data)); // En localStorage
+            }
+        
+            // Guarda el Token
+            localStorage.setItem( 'token', data.token );
+          }
           
         }),
         map( data => {
