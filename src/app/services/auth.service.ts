@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable, tap, map, catchError, of } from 'rxjs';
@@ -78,5 +78,25 @@ export class AuthService {
     }
 
     return of( true );
+  }
+
+  verifyUser (){
+    const token = localStorage.getItem( 'token' ) || '';
+    const headers = new HttpHeaders().set( 'X-Token', token );
+    
+    return this.http.get<Response>('http://localhost:3000/api/auth/re-new-token', { headers } )
+      .pipe (
+        tap ((data)=>{
+          console.log(data)
+        }),
+        map((data)=>{
+          return data.ok
+        }),
+        catchError ((data) =>{
+          return of (false)
+
+        })
+      );
+
   }
 }
