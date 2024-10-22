@@ -7,24 +7,28 @@
                     routerLinkActive="active"
                 >home</a>
             </li>
-            <li>
-                <a 
-                    [routerLink]="['product', 'list' ]" 
-                    routerLinkActive="active"
-                >products</a>
-            </li>
-            <li>
-                <a 
-                    [routerLink]="['product', 'form' ]" 
-                    routerLinkActive="active"
-                >product form</a>
-            </li>
-            <li>
-                <a 
-                    [routerLink]="['/product/detail']" 
-                    routerLinkActive="active"
-                >product detail</a>
-            </li>
+            <!-- Enlaces que requieren autenticacion para ser visualizados -->
+            @if( userData ) {
+                <li>
+                    <a 
+                        [routerLink]="['product', 'list' ]" 
+                        routerLinkActive="active"
+                    >products</a>
+                </li>
+                <li>
+                    <a 
+                        [routerLink]="['product', 'form' ]" 
+                        routerLinkActive="active"
+                    >product form</a>
+                </li>
+                <li>
+                    <a 
+                        [routerLink]="['/product/detail']" 
+                        routerLinkActive="active"
+                    >product detail</a>
+                </li>
+            }
+             <!-- Enlaces que NO requieren autenticacion para ser visualizados -->
             @if( ! userData ) {
                 <li>
                     <a 
@@ -39,7 +43,7 @@
                     >register</a>
                 </li>
             }
-            
+            <!-- Enlaces que requieren autenticacion para ser visualizados -->
             @if( userData ) {
                 <li>
                     <a 
@@ -50,6 +54,7 @@
             
         </ul>
     </nav>
+     <!-- Despliega mensaje de saludo su el usuarui esta autenticado -->
     @if( userData ) {
         <span>Hola, {{ userData.name }}</span>
     }

@@ -18,6 +18,7 @@ export class HeaderComponent {
     private router: Router 
   ) {}
 
+  /** Getters */
   get userData(): User | null {
     // Obtenemos datos del usuario autenticado
     return this.authService.userData;  
