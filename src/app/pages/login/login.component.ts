@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   formData!: FormGroup;
   message: string|undefined;
+  subscribe!: Subscription
 
   constructor( 
     private authService: AuthService,
@@ -22,12 +24,16 @@ export class LoginComponent {
       username: new FormControl( '', [ Validators.required, Validators.email ] ),
       password: new FormControl( '', [ Validators.required, Validators.minLength( 8 ), Validators.maxLength( 20 ) ] )
     });
+
+    console.log( 
+      'Constructor'
+    )
   }
 
   handleSubmit() {
     if( this.formData.valid ) {
       console.log(this.formData.value);
-      this.authService.loginUser( this.formData.value ).subscribe( ( data ) => {
+      this.subscribe = this.authService.loginUser( this.formData.value ).subscribe( ( data ) => {
         console.log( data );
 
         if ( typeof data === 'string' ) {
@@ -49,5 +55,42 @@ export class LoginComponent {
 
       this.formData.reset();
     }
+  }
+
+  ngOnDestroy() {
+    if( this.subscribe ) {
+      this.subscribe.unsubscribe();
+      console.log( 'Destruye el componente pero antes desubcribe el observable' )
+    }
+
+    console.log( 'ngOnDestroy' );
+  }
+
+  ngDoCheck() {
+    console.log( 'ngDoCheck' );
+  }
+
+  ngAfterViewInit() {
+    console.log( 'ngAfterViewInit' );
+  }
+
+  ngAfterViewChecked() {
+    console.log( 'ngAfterViewChecked' );
+  }
+
+  ngAfterContentChecked() {
+    console.log( 'ngAfterContentChecked' );
+  }
+
+  ngAfterContentInit() {
+    console.log( 'ngAfterContentInit' );
+  }
+
+  ngOnChanges() {
+    console.log( 'ngOnChanges' );
+  }
+
+  ngOnInit() {
+    console.log( 'ngOnInit' );
   }
 }

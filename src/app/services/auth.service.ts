@@ -56,7 +56,7 @@ export class AuthService {
         
             // Guarda el Token
             localStorage.setItem( 'token', data.token );
-          }
+          }   
           
         }),
         map( data => {
@@ -71,11 +71,12 @@ export class AuthService {
   }
 
   logoutUser(): Observable<boolean> {
-    if( this._authUserData ) {
+    console.log( 'logout', this._authUserData );
+   
       this._authUserData = null;                  // Elimina datos del usuario autenticado en el Servicio
       localStorage.removeItem( 'token' );         // Elimina token del LocalStorage
       localStorage.removeItem( 'authUserData' );  // Elimina datos del usuario autenticado en el LocalStorage
-    }
+   
 
     return of( true );
   }
@@ -90,11 +91,12 @@ export class AuthService {
           console.log(data)
         }),
         map((data)=>{
+          console.log( 'verifyUser: ', data.ok );
+
           return data.ok
         }),
         catchError ((data) =>{
           return of (false)
-
         })
       );
 

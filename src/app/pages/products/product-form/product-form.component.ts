@@ -1,6 +1,8 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ProductsService } from '../../../services/products.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-form',
@@ -12,7 +14,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class ProductFormComponent {
   productForm!: FormGroup;  // Nombre del atributo con el que se vinculará el formulario
 
-  constructor () {
+  constructor ( private productsService: ProductsService, private router: Router ) {
     /** Define la agrupación de campos del formulario */
     this.productForm = new FormGroup({
       name: new FormControl( '', [ Validators.required ] ),
@@ -29,7 +31,14 @@ export class ProductFormComponent {
     // Verifica si el formulario es valido de acuerdo las validaciones del formulario
     if( this.productForm.valid ) {
       const formData = this.productForm.value;    // Datos del formulario
-      console.log( formData );  
+      console.log( formData ); 
+      this.productsService.registerProduct( formData ).subscribe( ( data ) => {
+        console.log( data );
+        this.router.navigateByUrl('product/list');
+      })
+
+
+
       this.productForm.reset();                   // Limpia los campos del formulario
     }
 

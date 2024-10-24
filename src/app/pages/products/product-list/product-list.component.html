@@ -1,1 +1,30 @@
-<p>product-list works!</p>
+<!-- <pre>{{ products | json }}</pre> -->
+
+<h2>Listado de productos</h2>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Categoria</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- [ {}, {}, {}, {}, {} ] -->
+        @for ( product of products; track $index ) {
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.price | currency }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>
+                    <a href="#">Editar</a>
+                    <a href="#">Eliminar</a>
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>
