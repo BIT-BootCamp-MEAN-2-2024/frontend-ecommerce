@@ -72,16 +72,16 @@ export class AuthService {
 
   logoutUser(): Observable<boolean> {
     console.log( 'logout', this._authUserData );
-   
-      this._authUserData = null;                  // Elimina datos del usuario autenticado en el Servicio
-      localStorage.removeItem( 'token' );         // Elimina token del LocalStorage
-      localStorage.removeItem( 'authUserData' );  // Elimina datos del usuario autenticado en el LocalStorage
-   
-
+  
+    this._authUserData = null;                  // Elimina datos del usuario autenticado en el Servicio
+    localStorage.removeItem( 'token' );         // Elimina token del LocalStorage
+    localStorage.removeItem( 'authUserData' );  // Elimina datos del usuario autenticado en el LocalStorage
+  
     return of( true );
   }
 
-  verifyUser (){
+  // TODO: Verificar cuando se vence el Token para que el guard limpie el localStorate y redireccione al login
+  verifyUser () {
     const token = localStorage.getItem( 'token' ) || '';
     const headers = new HttpHeaders().set( 'X-Token', token );
     

@@ -23,9 +23,25 @@ export class ProductListComponent {
   /** Life Cicle */
   ngOnInit() {
     /** Aqui voy a traer los datos el API */
+    this.loadData();
+  }
+
+  loadData() {
     this.productsService.getProducts().subscribe( ( data ) => {
       console.log( data );
       this.products = data.data;
+    });
+  }
+
+  editar( id: any ) {
+    console.log( `Editar producto ${ id }` );
+  }
+
+  eliminar( id: any ) {
+    console.log( 'Elimina producto ' + id );
+    this.productsService.deleteProduct( id ).subscribe( ( data ) => {
+      console.log( data );
+      this.loadData();
     });
   }
 

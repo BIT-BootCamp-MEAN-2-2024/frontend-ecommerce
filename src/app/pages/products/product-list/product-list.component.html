@@ -16,12 +16,12 @@
         @for ( product of products; track $index ) {
             <tr>
                 <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
+                <td>{{ product.category.name }}</td>
                 <td>{{ product.price | currency }}</td>
                 <td>{{ product.quantity }}</td>
                 <td>
-                    <a href="#">Editar</a>
-                    <a href="#">Eliminar</a>
+                    <span (click)="editar( product._id )">Editar</span>
+                    <span (click)="eliminar( product._id )">Eliminar</span>
                 </td>
             </tr>
         }

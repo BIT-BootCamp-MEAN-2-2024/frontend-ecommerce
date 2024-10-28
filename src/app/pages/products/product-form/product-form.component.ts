@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductsService } from '../../../services/products.service';
 import { Router } from '@angular/router';
+import { CategoryService } from '../../../services/category.service';
 
 @Component({
   selector: 'app-product-form',
@@ -13,8 +14,13 @@ import { Router } from '@angular/router';
 })
 export class ProductFormComponent {
   productForm!: FormGroup;  // Nombre del atributo con el que se vinculará el formulario
+  categories: any[] = [];
 
-  constructor ( private productsService: ProductsService, private router: Router ) {
+  constructor ( 
+    private productsService: ProductsService, 
+    private categoryService: CategoryService,
+    private router: Router 
+  ) {
     /** Define la agrupación de campos del formulario */
     this.productForm = new FormGroup({
       name: new FormControl( '', [ Validators.required ] ),
@@ -35,14 +41,19 @@ export class ProductFormComponent {
       this.productsService.registerProduct( formData ).subscribe( ( data ) => {
         console.log( data );
         this.router.navigateByUrl('product/list');
-      })
-
-
+      });
 
       this.productForm.reset();                   // Limpia los campos del formulario
     }
-
     
+  }
+
+  /** Ciclo de vida que informa de la inicializacion del componente */
+  ngOnInit() {
+    this.categoryService.getCategories().subscribe( ( data ) => {
+      console.log( data );
+      this.categories = data.data;
+    });
   }
 
 }

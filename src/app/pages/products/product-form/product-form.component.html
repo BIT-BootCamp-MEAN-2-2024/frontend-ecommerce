@@ -62,11 +62,9 @@
         <div class="field">
             <label for="category">Category*</label>
             <select formControlName="category" id="category">
-                <option value="tecnology">Tecnology</option>
-                <option value="vegetables">Vegetables</option>
-                <option value="fruits">Fruits</option>
-                <option value="home">Home</option>
-                <option value="pharmacy">Pharmacy</option>
+                @for ( item of categories; track $index ) {
+                    <option [value]="item._id">{{ item.name }}</option>
+                }
             </select>
             <!-- Validar los estados del campo input >> name -->
             <div class="error">
