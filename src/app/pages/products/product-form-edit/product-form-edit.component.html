@@ -9,7 +9,7 @@
     [] >> Si ven esto es una directiva
     () >> Si ven esto es un evento
 -->
-    <h1>Register product</h1>
+    <h1>Update product</h1>
    <div class="form-content">
         <div class="field">
             <label for="name-product">Name product*</label>
@@ -82,18 +82,7 @@
             <input type="text" formControlName="urlImage" id="image" />
         </div>
         <div class="field">
-            <button type="submit" [disabled]="productForm.invalid">Register</button>
+            <button type="submit" [disabled]="productForm.invalid">Update</button>
         </div>
    </div>
 </form>
-
-
-<!-- 
-name
-description
-price
-quantity
-category
-urlImage
-state 
--->

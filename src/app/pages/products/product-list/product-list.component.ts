@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -14,7 +15,10 @@ export class ProductListComponent {
   products: any[] = [];
 
   /** Constructor */
-  constructor( private productsService: ProductsService  ) {}
+  constructor( 
+    private productsService: ProductsService,
+    private router: Router
+  ) {}
 
   /** Getters & Setters */
 
@@ -35,6 +39,8 @@ export class ProductListComponent {
 
   editar( id: any ) {
     console.log( `Editar producto ${ id }` );
+    //this.router.navigateByUrl( `product/edit/${ id }` );
+    this.router.navigate([ 'product', 'edit', id ]);
   }
 
   eliminar( id: any ) {

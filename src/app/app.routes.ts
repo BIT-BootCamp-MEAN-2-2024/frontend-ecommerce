@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { ProductFormComponent } from './pages/products/product-form/product-form.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { authGuard } from './guards/auth.guard';
+import { ProductFormEditComponent } from './pages/products/product-form-edit/product-form-edit.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -16,9 +17,10 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: '404', component: PageNotFoundComponent },
     { path: 'dashboard', component: DashboardComponent, canActivate:[ authGuard ] },
-    { path: 'product/form', component: ProductFormComponent, canActivate:[ authGuard ] },
+    { path: 'product/new', component: ProductFormComponent, canActivate:[ authGuard ] },
     { path: 'product/list', component: ProductListComponent, canActivate:[ authGuard ] },
     { path: 'product/detail', component: ProductDetailComponent, canActivate:[ authGuard ] },
+    { path: 'product/edit/:id', component: ProductFormEditComponent, canActivate: [ authGuard ] },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', redirectTo: '404', pathMatch: 'full' }
 ];
