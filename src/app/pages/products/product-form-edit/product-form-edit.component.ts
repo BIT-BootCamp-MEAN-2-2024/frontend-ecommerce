@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
 export class ProductFormEditComponent {
   productForm!: FormGroup;  // Nombre del atributo con el que se vinculará el formulario
   categories: any[] = [];
+  selectedId!: string;
 
   constructor ( 
     private productsService: ProductsService, 
@@ -38,6 +39,12 @@ export class ProductFormEditComponent {
     // Verifica si el formulario es valido de acuerdo las validaciones del formulario
     if( this.productForm.valid ) {
       console.log( this.productForm.value );
+
+      this.productsService.updateProduct( this.selectedId, this.productForm.value ).subscribe( data => {
+        console.log( data );
+
+        this.router.navigate([ 'product', 'list' ]);
+      } );
       
     }
 
@@ -56,6 +63,7 @@ export class ProductFormEditComponent {
     /** Obtenemos la parametrizacion de la ruta (el Id pasado a la ruta) para obtener los datos del producto y mostrarlos en el formulario */
     this.activatedRoute.params.subscribe( ( data: Params ) => {
       console.log( data[ 'id' ] );
+      this.selectedId = data[ 'id' ];
 
       /** Usar el id para obtener los datos el producto que voy a editar */
       this.productsService.getProductById( data[ 'id' ] ).subscribe( ( product ) => {
