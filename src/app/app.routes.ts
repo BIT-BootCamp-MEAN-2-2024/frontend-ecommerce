@@ -10,6 +10,7 @@ import { ProductFormComponent } from './pages/products/product-form/product-form
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { authGuard } from './guards/auth.guard';
 import { ProductFormEditComponent } from './pages/products/product-form-edit/product-form-edit.component';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -17,6 +18,7 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: '404', component: PageNotFoundComponent },
     { path: 'dashboard', component: DashboardComponent, canActivate:[ authGuard ] },
+    { path: 'checkout', component: CheckoutComponent, canActivate:[ authGuard ] },
     { path: 'product/new', component: ProductFormComponent, canActivate:[ authGuard ] },
     { path: 'product/list', component: ProductListComponent, canActivate:[ authGuard ] },
     { path: 'product/detail', component: ProductDetailComponent, canActivate:[ authGuard ] },
