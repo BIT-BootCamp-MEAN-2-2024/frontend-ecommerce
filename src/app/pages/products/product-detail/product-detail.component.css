@@ -1,0 +1,16 @@
+.img-responsive {
+    width: 100%;
+    height: auto;
+}
+
+.product-detail {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    gap: 2rem;
+}
+
+.product-image,
+.product-info {
+    flex-basis: 50%;
+}

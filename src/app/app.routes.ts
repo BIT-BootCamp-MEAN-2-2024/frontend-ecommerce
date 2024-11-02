@@ -18,10 +18,10 @@ export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: '404', component: PageNotFoundComponent },
     { path: 'dashboard', component: DashboardComponent, canActivate:[ authGuard ] },
-    { path: 'checkout', component: CheckoutComponent, canActivate:[ authGuard ] },
+    { path: 'checkout', component: CheckoutComponent },
     { path: 'product/new', component: ProductFormComponent, canActivate:[ authGuard ] },
     { path: 'product/list', component: ProductListComponent, canActivate:[ authGuard ] },
-    { path: 'product/detail', component: ProductDetailComponent, canActivate:[ authGuard ] },
+    { path: 'product/detail/:id', component: ProductDetailComponent },
     { path: 'product/edit/:id', component: ProductFormEditComponent, canActivate: [ authGuard ] },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: '**', redirectTo: '404', pathMatch: 'full' }

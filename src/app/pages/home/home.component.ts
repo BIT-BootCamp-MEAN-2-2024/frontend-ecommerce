@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

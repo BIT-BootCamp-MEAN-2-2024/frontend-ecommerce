@@ -3,10 +3,15 @@
 <div class="container">
     <div class="card-list">
       <div *ngFor="let product of products" class="col-md-4 mb-4">
-        <div class="card">
-          <img [src]="product.imageUrl" class="card-img-top" alt="{{ product.name }}" />
+        <!-- <pre style="background-color: black; color: orange">{{ product | json }}</pre> -->
+        <div class="card" *ngIf="product?.urlImage && product.stock > 0">
+          <a [routerLink]="['/product','detail', product._id ]">
+            <img [src]="product.urlImage" class="card-img-top" alt="{{ product.name }}" />
+          </a>
           <div class="card-body">
-            <h5 class="card-title">{{ product.name }}</h5>
+            <a [routerLink]="['/product','detail', product._id ]">
+              <h5 class="card-title">{{ product.name }}</h5>
+            </a>
             <p class="card-text">{{ product.description }}</p>
             <p class="card-text text-muted">{{ product.price | currency }}</p>
             <p class="card-text">{{ product.stock }}</p>

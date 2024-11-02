@@ -1,1 +1,34 @@
-<p>product-detail works!</p>
+<!-- <pre>{{ productDetail | json }}</pre> -->
+
+<div class="product-detail">
+    @if( productDetail?.urlImage ) {
+        <div class="product-image">
+            <img class="img-responsive" [src]="productDetail?.urlImage" [alt]="productDetail?.name">
+        </div>
+    }
+    @else {
+        <div class="product-image">
+            <img class="img-responsive" src="https://salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png" alt="Imagen no encontrada">
+        </div>
+    }
+    <div class="product-info">
+        @if( productDetail?.name ) {
+            <h1>{{ productDetail?.name }}</h1>
+        }
+        @if( productDetail?.category?.name ) {
+            <p>{{ productDetail?.category?.name }}</p>
+        }
+        @if( productDetail?.description ) {
+            <p>{{ productDetail?.description }}</p>
+        }
+
+        <div class="options">
+            <p>{{ productDetail?.price | currency }}</p>
+            @if( productDetail?.stock > 0 ) {
+                <p>
+                    <button (click)="addToCart(productDetail)" class="btn btn-primary">Agregar al carrito</button>
+                </p>
+            }
+        </div>
+    </div>
+</div>
