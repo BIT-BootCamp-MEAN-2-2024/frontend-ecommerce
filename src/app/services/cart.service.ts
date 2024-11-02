@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Item } from '../interfaces/item';
+import { Product } from '../interfaces/product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
+  item!: Item;
   private cartProducts: any = [] ;
   private localStorageKey = 'cart';
 
@@ -12,36 +15,32 @@ export class CartService {
     console.log( this.cartProducts );
   }
 
-  addToCart(product:any) {
-      
-      /** Buscar en el carrito si hay un producto con el mismo ID del producto seleccionado */
-      const productFound = this.cartProducts.find( ( productItem: any ) =>{
-        return productItem._id == product._id;
-      });
-
-      console.log( productFound );
-
-      /** Valida si hay productos encontrados en el carrito */
-      if( ! productFound ) {
-        // Si no lo encuentra, lo agrega al carrito y le añade la propiedad items
-        product.items = 1;
-        this.cartProducts.push( product );        
-      }
-      else {
-        // Si lo encuentra solo incrementa en 1 la propiedad items
-        if( productFound.stock > productFound.items  ) {
-          productFound.items = productFound.items + 1;
-        }
-        else {
-          console.error( 'Cantidad excedida' );
-        }
-      }
-
-      console.log( this.cartProducts );
-
-      /** Guarda los datos en el localStorage, en la misma key */
-      this.saveCartToLocalStorage();  
+  addToCart(product: Product) {
+    // Buscar el producto en el carrito usando su id
+    const productFound = this.cartProducts.find((productItem: any) => 
+      productItem.info._id === product._id
+    );
+  
+    if (!productFound) {
+      // Si no se encuentra en el carrito, se crea un nuevo item con order = 1
+      this.item = {
+        info: product,
+        order: 1,
+        total: product.price // Total inicial basado en la cantidad de 1
+      };
+      this.cartProducts.push(this.item);
+    } else if ( productFound.order < product.stock ) {
+      // Si el producto ya está en el carrito y no se ha alcanzado el límite, incrementar 'order'
+      productFound.order += 1;
+      productFound.total = productFound.order * product.price;
+    } else {
+      console.error('Cantidad excedida');
+    }
+  
+    // Guardar el carrito actualizado en localStorage
+    this.saveCartToLocalStorage();
   }
+  
 
   private saveCartToLocalStorage() {
     localStorage.setItem( this.localStorageKey, JSON.stringify( this.cartProducts ) );

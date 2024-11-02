@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../../services/products.service';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../../services/cart.service';
+import { Product } from '../../../interfaces/product';
 
 @Component({
   selector: 'app-product-detail',
@@ -31,7 +32,7 @@ export class ProductDetailComponent {
     })
   }
 
-  addToCart( product: any ) {
+  addToCart( product: Product ) {
     this.cartService.addToCart( product );
   }
 }

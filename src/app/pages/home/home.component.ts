@@ -3,6 +3,7 @@ import { ProductsService } from '../../services/products.service';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { RouterLink } from '@angular/router';
+import { Product } from '../../interfaces/product';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +31,7 @@ export class HomeComponent {
     });
   }
 
-  addToCart(product: any): void {
+  addToCart(product: Product): void {
     this.cartService.addToCart(product);
   }
 }
