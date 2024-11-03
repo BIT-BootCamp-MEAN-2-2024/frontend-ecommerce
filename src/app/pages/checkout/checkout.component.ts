@@ -21,10 +21,12 @@ export class CheckoutComponent {
 
   addOneItem( id: any ) {
     console.log( 'Agrega 1 item con ID: ' + id );
+    this.cartService.addOneItem( id );
   }
 
   removeOneItem( id: any ) {
     console.log( 'Elimina 1 item con ID: ' + id );
+    this.cartService.removeOneItem( id );
   }
 
   removeOneItemsCollection( id: any ) {

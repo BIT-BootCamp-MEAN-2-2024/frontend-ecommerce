@@ -19,6 +19,54 @@ export class CartService {
     return this.shoppingCart;
   }
 
+  removeOneItem( id: any ) {
+    console.log( id );
+    
+    this.shoppingCart = this.shoppingCart
+      .map( ( item: any ) => {
+          if( item.info._id === id ) {
+            if( item.order !== 0 && item.info.stock > 0 ) {
+              item.order -= 1;
+              item.total = item.info.price * item.order;
+            }
+          }
+
+          return item;
+      })
+      .filter( ( item: any ) => item.order !== 0 );
+
+    console.log( this.shoppingCart );
+    
+    localStorage.setItem(
+      this.localStorageKey, 
+      JSON.stringify( this.shoppingCart ) 
+    );
+  }
+
+  addOneItem( id: any ) {
+    console.log( id );
+    
+    this.shoppingCart = this.shoppingCart
+      .map( ( item: any ) => {
+          if( item.info._id === id ) {
+            if( item.order !== 0 && item.info.stock > 0 ) {
+              item.order += 1;
+              item.total = item.info.price * item.order;
+            }
+          }
+
+          return item;
+      })
+      .filter( ( item: any ) => item.order !== 0 );
+
+    console.log( this.shoppingCart );
+    
+    localStorage.setItem(
+      this.localStorageKey, 
+      JSON.stringify( this.shoppingCart ) 
+    );
+  }
+
   addToCart(product: Product) {
     // Buscar el producto en el carrito usando su id
     const productFound = this.shoppingCart.find((productItem: any) => 
