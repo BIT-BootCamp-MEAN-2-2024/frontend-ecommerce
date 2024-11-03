@@ -37,10 +37,7 @@ export class CartService {
 
     console.log( this.shoppingCart );
     
-    localStorage.setItem(
-      this.localStorageKey, 
-      JSON.stringify( this.shoppingCart ) 
-    );
+    this.saveCartToLocalStorage();
   }
 
   addOneItem( id: any ) {
@@ -61,10 +58,17 @@ export class CartService {
 
     console.log( this.shoppingCart );
     
-    localStorage.setItem(
-      this.localStorageKey, 
-      JSON.stringify( this.shoppingCart ) 
-    );
+    this.saveCartToLocalStorage();
+  }
+
+  removeToCart( id: any ) {
+    this.shoppingCart = this.shoppingCart.filter( ( item: any ) => {
+      return item.info._id !== id;
+    });
+
+    console.log( this.shoppingCart );
+
+    this.saveCartToLocalStorage();
   }
 
   addToCart(product: Product) {
@@ -95,7 +99,10 @@ export class CartService {
   
 
   private saveCartToLocalStorage() {
-    localStorage.setItem( this.localStorageKey, JSON.stringify( this.shoppingCart ) );
+    localStorage.setItem( 
+      this.localStorageKey, 
+      JSON.stringify( this.shoppingCart ) 
+    );
   }
 
   private loadCartFromLocalStorage() {

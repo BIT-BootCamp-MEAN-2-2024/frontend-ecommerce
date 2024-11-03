@@ -29,8 +29,9 @@ export class CheckoutComponent {
     this.cartService.removeOneItem( id );
   }
 
-  removeOneItemsCollection( id: any ) {
+  removeToCart( id: any ) {
     console.log( 'Elimina todos los items con ID: ' + id );
+    this.cartService.removeToCart( id );
   }
 
   removeAllItems() {
