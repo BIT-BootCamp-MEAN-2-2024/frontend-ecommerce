@@ -1,0 +1,8 @@
+.shopping-list {
+    width: 100%;
+    max-width: 100%;
+
+    td {
+        padding: .4rem;
+    }
+}

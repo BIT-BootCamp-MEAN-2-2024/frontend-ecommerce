@@ -1,1 +1,44 @@
-<p>checkout works!</p>
+<!-- <pre>{{ cartProducts | json }}</pre> -->
+
+<div class="shopping-cart">
+    <h1>Carrito de compras</h1>
+
+    <table border="1" class="shopping-list">
+        <tr>
+            <th>Preview</th>
+            <th>Product name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Sub-total</th>
+            <th>Remove</th>
+        </tr>
+        @for ( productItem of cartProducts; track $index ) {
+            <tr>
+                <td>
+                    <img class="img-responsive img-thumbnail" [src]="productItem.info.urlImage" [alt]="productItem.info.name">
+                </td>
+                <td>
+                    <h3 class="item">{{ productItem.info.name }}</h3>
+                    <p>{{ productItem.info.category.name }}</p>
+                </td>
+                <td>
+                    <p>{{ productItem.info.price | currency }}</p>
+                </td>
+                <td>
+                    <button>+</button>
+                    <input type="text" [value]="productItem.order">
+                    <button>-</button>
+                </td>
+                <td>
+                    <p>{{ productItem.total | currency }}</p>
+                </td>
+                <td>
+                    <a href="#">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="shopping-total">
+
+    </div>
+</div>
