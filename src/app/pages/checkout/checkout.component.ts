@@ -18,4 +18,20 @@ export class CheckoutComponent {
     this.cartProducts = this.cartService.items;
     console.log( this.cartProducts );
   }
+
+  addOneItem( id: any ) {
+    console.log( 'Agrega 1 item con ID: ' + id );
+  }
+
+  removeOneItem( id: any ) {
+    console.log( 'Elimina 1 item con ID: ' + id );
+  }
+
+  removeOneItemsCollection( id: any ) {
+    console.log( 'Elimina todos los items con ID: ' + id );
+  }
+
+  removeAllItems() {
+    console.log( 'Elimina todos los items' );
+  }
 }

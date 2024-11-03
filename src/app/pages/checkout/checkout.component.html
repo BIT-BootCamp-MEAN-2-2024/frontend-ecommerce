@@ -1,44 +1,68 @@
 <!-- <pre>{{ cartProducts | json }}</pre> -->
-
 <div class="shopping-cart">
     <h1>Carrito de compras</h1>
-
-    <table border="1" class="shopping-list">
-        <tr>
-            <th>Preview</th>
-            <th>Product name</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Sub-total</th>
-            <th>Remove</th>
-        </tr>
-        @for ( productItem of cartProducts; track $index ) {
+    <div class="shopping-cart-detail">
+    
+        <table border="1" class="shopping-list">
             <tr>
-                <td>
-                    <img class="img-responsive img-thumbnail" [src]="productItem.info.urlImage" [alt]="productItem.info.name">
-                </td>
-                <td>
-                    <h3 class="item">{{ productItem.info.name }}</h3>
-                    <p>{{ productItem.info.category.name }}</p>
-                </td>
-                <td>
-                    <p>{{ productItem.info.price | currency }}</p>
-                </td>
-                <td>
-                    <button>+</button>
-                    <input type="text" [value]="productItem.order">
-                    <button>-</button>
-                </td>
-                <td>
-                    <p>{{ productItem.total | currency }}</p>
-                </td>
-                <td>
-                    <a href="#">Eliminar</a>
-                </td>
+                <th>Preview</th>
+                <th>Product name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Sub-total</th>
+                <th>Remove</th>
             </tr>
-        }
-    </table>
-    <div class="shopping-total">
-
+            @for ( productItem of cartProducts; track $index ) {
+                <tr>
+                    <td>
+                        <img class="img-responsive img-thumbnail" [src]="productItem.info.urlImage" [alt]="productItem.info.name">
+                    </td>
+                    <td>
+                        <h3 class="item">{{ productItem.info.name }}</h3>
+                        <p>{{ productItem.info.category.name }}</p>
+                    </td>
+                    <td>
+                        <p>{{ productItem.info.price | currency }}</p>
+                    </td>
+                    <td>
+                        <button (click)="addOneItem( productItem.info._id )">+</button>
+                        <input class="order" type="text" [value]="productItem.order">
+                        <button (click)="removeOneItem( productItem.info._id )">-</button>
+                    </td>
+                    <td>
+                        <p>{{ productItem.total | currency }}</p>
+                    </td>
+                    <td>
+                        <a (click)="removeOneItemsCollection( productItem.info._id )">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </table>
+        <div class="shopping-total">
+            <div class="cart-total">
+                <h2>Cart totals</h2>
+                <div class="cart-detail">
+                    <div class="field__subtotal">
+                        <label for="" class="subtotal">Subtotal</label>
+                        <p>$250.00</p>
+                    </div>
+                    <div class="field__extimated-delivery">
+                        <label for="" class="extimated-delivery">Extimated Delivery</label>
+                        <p>Free</p>
+                    </div>
+                    <div class="field__extimated-taxs">
+                        <label for="" class="extimated-taxs">Extimated Taxs</label>
+                        <p>$10.00</p>
+                    </div>
+                </div>
+                <div class="cart-total">
+                    <div class="field__total">
+                        <label for="" class="total">Total</label>
+                        <p>$260.00</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+

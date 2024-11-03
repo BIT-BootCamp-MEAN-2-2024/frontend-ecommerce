@@ -1,8 +1,29 @@
+.shopping-cart-detail {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+}
+
 .shopping-list {
     width: 100%;
     max-width: 100%;
 
     td {
         padding: .4rem;
+        text-align: center;
     }
+
+    .order {
+        width: 2rem;
+        text-align: center;
+    }
+}
+table.shopping-list {
+    flex-basis: auto;
+    margin-right: .8rem;
+}
+.shopping-total {
+    flex-basis: 30%;
+    padding-left: .8rem;
 }
