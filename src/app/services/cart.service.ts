@@ -9,14 +9,32 @@ export class CartService {
   item!: Item;
   private shoppingCart: any = [] ;
   private localStorageKey = 'cart';
+  total: number = 0;
 
-  constructor() {
+  get items() {
+    return this.shoppingCart;
+  }
+
+  ngOnInit() {
     this.loadCartFromLocalStorage();
     console.log( this.shoppingCart );
   }
 
-  get items() {
-    return this.shoppingCart;
+  totalPrice() {
+    const prices = this.shoppingCart
+      .map( ( item: any ) => {
+        return item.total;
+      });
+
+    console.log( prices );
+
+    const initialValue = 0;
+    
+    this.total  = prices.reduce(
+      ( accumulator: any, currentValue: any ) => accumulator + currentValue,
+      initialValue
+    );
+
   }
 
   removeOneItem( id: any ) {
@@ -38,6 +56,7 @@ export class CartService {
     console.log( this.shoppingCart );
     
     this.saveCartToLocalStorage();
+    this.totalPrice();
   }
 
   addOneItem( id: any ) {
@@ -59,6 +78,7 @@ export class CartService {
     console.log( this.shoppingCart );
     
     this.saveCartToLocalStorage();
+    this.totalPrice();
   }
 
   removeToCart( id: any ) {
@@ -69,6 +89,7 @@ export class CartService {
     console.log( this.shoppingCart );
 
     this.saveCartToLocalStorage();
+    this.totalPrice();
   }
 
   addToCart(product: Product) {
@@ -95,6 +116,7 @@ export class CartService {
   
     // Guardar el carrito actualizado en localStorage
     this.saveCartToLocalStorage();
+    this.totalPrice();
   }
   
 

@@ -14,6 +14,10 @@ export class CheckoutComponent {
 
   constructor( private cartService: CartService ) {}
 
+  get total() {
+    return this.cartService.total;
+  }
+
   ngOnInit() {
     this.cartProducts = this.cartService.items;
     console.log( this.cartProducts );
