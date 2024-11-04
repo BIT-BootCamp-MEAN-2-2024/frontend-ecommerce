@@ -9,9 +9,11 @@ export class CartService {
   item!: Item;
   private shoppingCart: any = [] ;
   private localStorageKey = 'cart';
+  total: number = 0;
 
   constructor () {
     this.loadCartFromLocalStorage();
+    this.totalPrice();
     console.log( this.shoppingCart );
   }
 
@@ -44,8 +46,62 @@ export class CartService {
   
     // Guardar el carrito actualizado en localStorage
     this.saveCartToLocalStorage();
+    this.totalPrice();
   }
   
+  removeToCart( id: any ) {
+    this.shoppingCart = this.shoppingCart.filter( ( item: any ) => {
+      return item.info._id !== id;
+    });
+
+    console.log( this.shoppingCart );
+
+    this.saveCartToLocalStorage();
+    this.totalPrice();
+  }
+
+  addOneItemToCart( id: any ) {
+    console.log( id );
+
+    this.shoppingCart = this.shoppingCart.map( ( item: any ) => {
+      // Verifico el producto con ID que voy a modificar
+      if( item.info._id === id ) {
+        // Verificando que la orden no sea CERO & que haya un Stock disponible
+        if( item.order !== 0 && item.info.stock ) {
+          item.order += 1;
+          item.total = item.info.price * item.order;
+        }
+      }
+
+      return item;
+    });
+
+    this.saveCartToLocalStorage();
+    this.totalPrice();
+  }
+
+  substractOneItemToCart( id: any ) {
+    console.log( id );
+
+    this.shoppingCart = this.shoppingCart.map( ( item: any ) => {
+      // Verifico el producto con ID que voy a modificar
+      if( item.info._id === id ) {
+        // Verificando que la orden no sea CERO & que haya un Stock disponible
+        if( item.order !== 0 && item.info.stock ) {
+          item.order -= 1;
+          item.total = item.info.price * item.order;
+        }
+      }
+
+      return item;
+    })
+    .filter( ( item: any ) => { 
+      return item.order > 0;
+    } );
+
+    this.saveCartToLocalStorage();
+    this.totalPrice();
+  }
 
   private saveCartToLocalStorage() {
     localStorage.setItem( 
@@ -62,5 +118,18 @@ export class CartService {
     else {
       this.shoppingCart = []
     }
+  }
+
+  totalPrice() {
+    const prices = this.shoppingCart.map( ( item: any ) => {
+      return item.total;
+    });
+
+    console.log( prices );
+
+    this.total = prices.reduce( ( acc: number, current: number ) => {
+      return acc + current;
+    }, 0 );
+
   }
 }

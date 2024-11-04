@@ -18,14 +18,14 @@
                     <div class="shopping-cart__item item__values">
                         <div class="item__price">{{ item.info.price | currency }}</div>
                         <div class="item__control">
-                            <button>+</button>
+                            <button (click)="addOneItem( item.info._id )">+</button>
                             <input class="item__quantity" type="text" [value]="item.order">
-                            <button>-</button>
+                            <button (click)="substractOneItem( item.info._id )">-</button>
                         </div>
                         <div class="item__sub-total">{{ item.total | currency }}</div>
                     </div>
                     <div class="shopping-cart__item actions">
-                        <a href="#">Eliminar</a>
+                        <a (click)="remoteItems( item.info._id )">Eliminar</a>
                     </div>
                 </div>
             }
@@ -42,7 +42,7 @@
         <div class="shopping-cart__detail">
             <div class="sub-total">
                 <span>Subtotal</span>
-                <span>$250.00</span>
+                <span>{{ total | currency }}</span>
             </div>
             <div class="extimated-delivery">
                 <span>Extimated Delivery</span>
