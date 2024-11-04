@@ -1,1 +1,63 @@
-<p>checkout works!</p>
+<h1>Carrito de compras</h1>
+
+<!-- <pre>{{ cartProducts | json }}</pre> -->
+
+<div class="shopping-cart">
+
+    <div class="shopping-cart__detail">
+        @if( cartProducts.length > 0 ) {
+            @for ( item of cartProducts; track $index ) {
+                <div class="shopping-cart__list">
+                    <div class="shopping-cart__item item__preview">
+                        <img [src]="item.info.urlImage" [alt]="item.info.name" class="item__image">
+                    </div>
+                    <div class="shopping-cart__item item__info">
+                        <h2>{{ item.info.name }}</h2>
+                        <p>{{ item.info.category.name }}</p>
+                    </div>
+                    <div class="shopping-cart__item item__values">
+                        <div class="item__price">{{ item.info.price | currency }}</div>
+                        <div class="item__control">
+                            <button>+</button>
+                            <input class="item__quantity" type="text" [value]="item.order">
+                            <button>-</button>
+                        </div>
+                        <div class="item__sub-total">{{ item.total | currency }}</div>
+                    </div>
+                    <div class="shopping-cart__item actions">
+                        <a href="#">Eliminar</a>
+                    </div>
+                </div>
+            }
+        }
+        @else {
+            <div class="shopping-cart">
+                <p>No hay productos en el carrito</p>
+            </div>
+        }
+    </div>
+
+    <div class="shopping-cart__info">
+        <h2>Cart Totals</h2>
+        <div class="shopping-cart__detail">
+            <div class="sub-total">
+                <span>Subtotal</span>
+                <span>$250.00</span>
+            </div>
+            <div class="extimated-delivery">
+                <span>Extimated Delivery</span>
+                <span>Free</span>
+            </div>
+            <div class="extimated-taxs">
+                <span>Extimated Taxs</span>
+                <span>$10.00</span>
+            </div>
+        </div>
+        <div class="shopping-cart__total">
+            <div class="total">
+                <span>Total</span>
+                <span>$260.00</span>
+            </div>
+        </div>
+    </div>
+</div>
